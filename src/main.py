@@ -4,8 +4,8 @@ import sys
 
 from openai import OpenAI
 
-from llm_loop import agent_loop
-from system_prompt import SYSTEM_PROMPT
+from core.llm_loop import agent_loop
+from prompt.system_prompt import SYSTEM_PROMPT
 
 
 def main():

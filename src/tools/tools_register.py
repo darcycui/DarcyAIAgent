@@ -4,6 +4,7 @@
 # 注册后 Agent Loop可以根据 LLM 的返回结果执行具体的工具方法
 
 # 具体来说 Agent 中每个工具的 schema 字段的结构如下：
+# 这也是 OpenAI Function Calling 的标准格式定义
 # {
 #       "type": "function",
 #       "function": {
@@ -17,7 +18,7 @@
 #       },
 #   }
 # ============================================================
-from tools import python_exec, file_write, file_read, shell_exec
+from tools.tools import python_exec, file_write, file_read, shell_exec
 
 TOOLS = {
     "shell_exec": {

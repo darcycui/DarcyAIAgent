@@ -15,7 +15,7 @@ import json
 
 from openai import OpenAI
 
-from tools_register import TOOLS
+from tools.tools_register import TOOLS
 
 MAX_TURNS = 20
 
