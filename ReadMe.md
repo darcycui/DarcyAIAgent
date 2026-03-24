@@ -5,13 +5,14 @@
 ## 什么能力
 
 1. 基于 deepseek chat 的 AI 聊天能力
+
 2. Agent 拓展能力
     1. 执行shell命令
     2. 读取文件
     3. 写入文件
     4. 执行python代码
-3. MCP 拓展能力
-   支持接入MCP
+   
+3. 支持接入MCP
    1. 获取MCP接入文档 这里以[darcycui-mcp](https://pypi.org/project/darcycui-mcp/) 为例
    2. 在config/mcp_config.json 中配置 MCPServer
    ```json
@@ -30,8 +31,8 @@
      }
    }
    ```
-4. Skill 拓展能力
-   支持接入 Skill
+   
+4. 支持接入 Skill
    1. 将Skill 文件夹 完整复制到 config/skills 文件夹中
       - 文件夹的名称与 SKILL.md 中的 name 一致
       - 要复制整个文件夹，而不是仅复制里面的文件
