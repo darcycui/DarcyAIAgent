@@ -1,21 +1,31 @@
 ## 是什么
-一个极简的 AI Agent, 使用 python + OpenAISDK + Deepseek 实现
+一个从0到1实现的、极简的 仿 OpenClaw 的 AI Agent, 使用 python + OpenAISDK + Deepseek 实现。
 
 
 ## 什么能力
 
-1. 基于deepseek chat 的聊天能力
-2. Agent拓展能力
+1. 基于 deepseek chat 的 AI 聊天能力
+2. Agent 拓展能力
     1. 执行shell命令
     2. 读取文件
     3. 写入文件
     4. 执行python代码
+3. MCP拓展能力
+   支持接入MCP
 
 ## 怎么使用
 
-1. 配置deepseek apikey环境变量 DEEPSEEK_API_KEY
-2. 运行main.py
-3. 在控制台与Agent互动
+1. 配置 deepseek apikey 环境变量 DEEPSEEK_API_KEY
+2. 运行 main.py
+3. 在控制台与 Agent 互动
+
+## 运行效果
+1. 你是谁
+![Agent你是谁](./docs/Agent你是谁.png)
+2. 调用 MCP 
+以 [darcycui-mcp](https://pypi.org/project/darcycui-mcp/) 为例
+![Agent调用MCP](./docs/Agent调用MCP运行效果.png)
+
 
 
 ## 参考文章：

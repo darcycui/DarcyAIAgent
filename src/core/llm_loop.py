@@ -11,16 +11,18 @@
 #
 # 注：这里使用的模型为deepseek-chat，主要考量因素是模型支持Tool Calls，并且完全兼容OpenAI的SDK。
 # ============================================================
+import asyncio
 import json
 
 from openai import OpenAI
 
+from mcps.mcp_register import get_all_tools_schemas, get_all_tools
 from tools.tools_register import TOOLS
 
-MAX_TURNS = 20
+MAX_TURNS = 10
 
 
-def agent_loop(user_message: str, messages: list, client: OpenAI) -> str:
+async def agent_loop(user_message: str, messages: list, client: OpenAI) -> str:
     """
     Agent Loop：while 循环驱动 LLM 推理与工具调用。
     流程：
@@ -31,7 +33,11 @@ def agent_loop(user_message: str, messages: list, client: OpenAI) -> str:
       5. 安全上限 MAX_TURNS 轮
     """
     messages.append({"role": "user", "content": user_message})
-    tool_schemas = [t["schema"] for t in TOOLS.values()]
+    # tool_schemas = [t["schema"] for t in TOOLS.values()]
+    tool_schemas = get_all_tools_schemas()
+    print(f"[tool_schemas]-->{tool_schemas}")
+    # tool_entry = TOOLS.get(name)
+    all_tools = get_all_tools()
     for turn in range(1, MAX_TURNS + 1):
         # --- LLM Call ---
         response = client.chat.completions.create(
@@ -50,17 +56,23 @@ def agent_loop(user_message: str, messages: list, client: OpenAI) -> str:
         for tool_call in assistant_msg.tool_calls:
             name = tool_call.function.name
             raw_args = tool_call.function.arguments
-            print(f"  [tool] {name}({raw_args})")
+            print(f"调用  [tool] {name}({raw_args})")
             # 解析参数并调用工具
             try:
                 args = json.loads(raw_args)
             except json.JSONDecodeError:
                 args = {}
-            tool_entry = TOOLS.get(name)
+            # tool_entry = TOOLS.get(name)
+            # all_tools = get_all_tools()
+            tool_entry = all_tools.get(name)
             if tool_entry is None:
                 result = f"[error] unknown tool: {name}"
             else:
-                result = tool_entry["function"](**args)
+                # 检查是否是异步函数
+                if asyncio.iscoroutinefunction(tool_entry["function"]):
+                    result = await tool_entry["function"](**args)
+                else:
+                    result = tool_entry["function"](**args)
             # 将工具结果追加到上下文
             messages.append(
                 {
