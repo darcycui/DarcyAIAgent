@@ -55,12 +55,16 @@ class MCPClient:
         if self.session:
             try:
                 await self.session.__aexit__(None, None, None)
+            except Exception as e:
+                print(f"关闭 session 时出错：{e}")
             finally:
                 self.session = None
 
         if self._stdio_transport:
             try:
                 await self._stdio_transport.__aexit__(None, None, None)
+            except Exception as e:
+                print(f"关闭 stdio_transport 时出错：{e}")
             finally:
                 self._stdio_transport = None
                 self._read_stream = None

@@ -29,8 +29,7 @@ def get_mcp_tools_wrapper():
             "function": dynamic_function,
             "schema": schema,
         }
-    print(f"[MCP] Registered MCP tool: {mcp_tools}")
-
+    # print(f"[MCP] Registered MCP tool: {mcp_tools}")
     return mcp_tools
 
 

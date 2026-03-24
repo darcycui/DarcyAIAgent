@@ -33,10 +33,10 @@ async def agent_loop(user_message: str, messages: list, client: OpenAI) -> str:
       5. 安全上限 MAX_TURNS 轮
     """
     messages.append({"role": "user", "content": user_message})
-    # tool_schemas = [t["schema"] for t in TOOLS.values()]
+    # 该大模型传递的 schema
     tool_schemas = get_all_tools_schemas()
     print(f"[tool_schemas]-->{tool_schemas}")
-    # tool_entry = TOOLS.get(name)
+    # 可以本地调用的工具 (函数)
     all_tools = get_all_tools()
     for turn in range(1, MAX_TURNS + 1):
         # --- LLM Call ---
