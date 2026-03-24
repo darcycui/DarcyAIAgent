@@ -37,12 +37,12 @@
 3. 在控制台与 Agent 互动
 
 ## 运行效果
-1. 你是谁
+1. AI聊天 输入：你是谁
 ![Agent你是谁](./docs/Agent你是谁.png)
-2. 调用 MCP 
-以 [darcycui-mcp](https://pypi.org/project/darcycui-mcp/) 为例
-![Agent调用MCP](./docs/Agent调用MCP运行效果.png)
 
+2. 调用 MCP 
+以 [darcycui-mcp](https://pypi.org/project/darcycui-mcp/) 为例，输入： 北京明天的天气
+![Agent调用MCP](./docs/Agent调用MCP运行效果.png)
 
 
 ## 参考文章：
