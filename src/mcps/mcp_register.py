@@ -4,9 +4,20 @@ from concurrent import futures
 from concurrent.futures import ThreadPoolExecutor
 from typing import Any
 
-from mcps.callback_wrap import create_dynamic_tool_caller
-from mcps.mcp_global_helper import get_mcp_manager
+from mcps.mcp_manager import get_mcp_manager
 from tools.tools_register import TOOLS
+
+
+def create_dynamic_tool_caller(qualified_name: str):
+    """创建一个用于调用特定MCP工具的闭包函数"""
+
+    async def dynamic_tool_function(**kwargs):
+        # 这个函数将被Agent Loop调用
+        # 通过您实现的MCP通信层发送请求
+        response = await get_mcp_manager().call_mcp_tool(qualified_name, kwargs)
+        return response
+
+    return dynamic_tool_function
 
 
 def get_mcp_tools_wrapper():
@@ -31,4 +42,3 @@ def get_mcp_tools_wrapper():
         }
     # print(f"[MCP] Registered MCP tool: {mcp_tools}")
     return mcp_tools
-

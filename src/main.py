@@ -7,7 +7,7 @@ from openai import OpenAI
 
 from core.llm_loop import agent_loop
 from prompt.system_prompt import SYSTEM_PROMPT
-from mcps.mcp_global_helper import init_mcp, shutdown_mcp
+from mcps.mcp_manager import init_mcp, shutdown_mcp
 from skills.skill_manager import get_skill_manager
 
 

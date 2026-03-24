@@ -46,16 +46,16 @@
 
 ## 运行效果
 1. AI聊天 输入：你是谁
-![Agent你是谁](./docs/Agent你是谁.png)
+![Agent你是谁](docs/image/Agent你是谁.png)
 
 2. 调用 MCP 
 以 [darcycui-mcp](https://pypi.org/project/darcycui-mcp/) 为例，输入： 北京明天的天气
-![Agent调用MCP](./docs/Agent调用MCP运行效果.png)
+![Agent调用MCP](docs/image/Agent调用MCP运行效果.png)
 
 3. 调用 Skill
 以 [my-first-skill](https://github.com/darcycui/DarcyAISkill) 为例，输入： 格式化文本 "  hello  aaa    "
-![Agent调用Skill](./docs/Agent调用Skill运行效果.png)
-![Agent调用Skill](./docs/Agent调用Skill运行效果2.png)
+![Agent调用Skill](docs/image/Agent调用Skill运行效果.png)
+![Agent调用Skill](docs/image/Agent调用Skill运行效果2.png)
 
 
 ## 参考文章：

@@ -1,7 +1,7 @@
 import asyncio
 import unittest
 
-from mcps.mcp_global_helper import init_mcp, shutdown_mcp, get_mcp_manager
+from mcps.mcp_manager import get_mcp_manager, init_mcp, shutdown_mcp
 from mcps.mcp_register import get_mcp_tools_wrapper
 
 

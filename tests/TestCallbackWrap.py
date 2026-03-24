@@ -3,7 +3,7 @@ import unittest
 import asyncio
 import unittest
 from unittest.mock import AsyncMock, MagicMock, patch
-from mcps.callback_wrap import create_dynamic_tool_caller
+from mcps.mcp_register import create_dynamic_tool_caller
 
 
 class TestCallbackWrap(unittest.IsolatedAsyncioTestCase):
