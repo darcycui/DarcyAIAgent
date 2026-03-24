@@ -12,7 +12,24 @@
     4. 执行python代码
 3. MCP拓展能力
    支持接入MCP
-
+   1. 获取MCP接入文档 这里以[darcycui-mcp](https://pypi.org/project/darcycui-mcp/) 为例
+   2. 在config/mcp_config.json 中配置 MCPServer
+   ```json
+   {
+     "mcpServers": {
+       "weather": {
+         "autoApprove": [],
+         "disabled": false,
+         "timeout": 60,
+         "type": "stdio",
+         "command": "uvx",
+         "args": [
+           "darcycui-mcp"
+         ]
+       }
+     }
+   }
+   ```
 ## 怎么使用
 
 1. 配置 deepseek apikey 环境变量 DEEPSEEK_API_KEY
