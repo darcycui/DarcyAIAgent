@@ -10,7 +10,7 @@
     2. 读取文件
     3. 写入文件
     4. 执行python代码
-3. MCP拓展能力
+3. MCP 拓展能力
    支持接入MCP
    1. 获取MCP接入文档 这里以[darcycui-mcp](https://pypi.org/project/darcycui-mcp/) 为例
    2. 在config/mcp_config.json 中配置 MCPServer
@@ -30,6 +30,13 @@
      }
    }
    ```
+4. Skill 拓展能力
+   支持接入 Skill
+   1. 将Skill 文件夹 完整复制到 config/skills 文件夹中
+      - 文件夹的名称与 SKILL.md 中的 name 一致
+      - 要复制整个文件夹，而不是仅复制里面的文件
+
+
 ## 怎么使用
 
 1. 配置 deepseek apikey 环境变量 DEEPSEEK_API_KEY
@@ -43,6 +50,11 @@
 2. 调用 MCP 
 以 [darcycui-mcp](https://pypi.org/project/darcycui-mcp/) 为例，输入： 北京明天的天气
 ![Agent调用MCP](./docs/Agent调用MCP运行效果.png)
+
+3. 调用 Skill
+以 [my-first-skill](https://github.com/darcycui/DarcyAISkill) 为例，输入： 格式化文本 "  hello  aaa    "
+![Agent调用Skill](./docs/Agent调用Skill运行效果.png)
+![Agent调用Skill](./docs/Agent调用Skill运行效果2.png)
 
 
 ## 参考文章：
