@@ -32,20 +32,3 @@ def get_mcp_tools_wrapper():
     # print(f"[MCP] Registered MCP tool: {mcp_tools}")
     return mcp_tools
 
-
-def get_all_tools():
-    """
-    获取所有可用的工具（包括本地工具和 MCP 工具）
-    """
-    all_tools = TOOLS.copy()
-    mcp_tools = get_mcp_tools_wrapper()
-    all_tools.update(mcp_tools)
-    return all_tools
-
-
-def get_all_tools_schemas():
-    """
-    获取所有工具的 schema（用于传递给 LLM）
-    """
-    all_tools = get_all_tools()
-    return [t["schema"] for t in all_tools.values()]

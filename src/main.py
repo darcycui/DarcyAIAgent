@@ -8,6 +8,7 @@ from openai import OpenAI
 from core.llm_loop import agent_loop
 from prompt.system_prompt import SYSTEM_PROMPT
 from mcps.mcp_global_helper import init_mcp, shutdown_mcp
+from skills.skill_manager import get_skill_manager
 
 
 async def main():
@@ -17,6 +18,14 @@ async def main():
         sys.exit(1)
     client = OpenAI(api_key=api_key, base_url="https://api.deepseek.com")
     messages: list = [{"role": "system", "content": SYSTEM_PROMPT}]
+    # 初始化 Skill 系统（仅加载元数据）
+    print("\n[Skill] Discovering skills...")
+    skill_manager = get_skill_manager()
+    print(f"[Skill] Found {len(skill_manager.skills_metadata)} skill(s)")
+    for skill_name, skill_info in skill_manager.skills_metadata.items():
+        print(f"  - {skill_name}: {skill_info['description']}")
+    print()
+
     # 初始化 MCP
     print("\n[MCP] Initializing MCP servers...")
     await init_mcp()

@@ -16,7 +16,8 @@ import json
 
 from openai import OpenAI
 
-from mcps.mcp_register import get_all_tools_schemas, get_all_tools
+from mcps.mcp_register import get_mcp_tools_wrapper
+from skills.skill_register import get_skill_tools_wrapper
 from tools.tools_register import TOOLS
 
 MAX_TURNS = 10
@@ -33,11 +34,19 @@ async def agent_loop(user_message: str, messages: list, client: OpenAI) -> str:
       5. 安全上限 MAX_TURNS 轮
     """
     messages.append({"role": "user", "content": user_message})
-    # 该大模型传递的 schema
-    tool_schemas = get_all_tools_schemas()
-    print(f"[tool_schemas]-->{tool_schemas}")
     # 可以本地调用的工具 (函数)
-    all_tools = get_all_tools()
+    all_tools = TOOLS.copy()
+    # 添加 MCP 工具
+    mcp_tools = get_mcp_tools_wrapper()
+    all_tools.update(mcp_tools)
+    # 添加 Skill 工具
+    skill_tools = get_skill_tools_wrapper()
+    all_tools.update(skill_tools)
+
+    # 给大模型传递的工具 schema
+    tool_schemas =  [t["schema"] for t in all_tools.values()]
+    print(f"[tool_schemas]-->{tool_schemas}")
+
     for turn in range(1, MAX_TURNS + 1):
         # --- LLM Call ---
         response = client.chat.completions.create(
