@@ -9,13 +9,11 @@ from core.llm_loop import agent_loop
 from prompt.system_prompt import SYSTEM_PROMPT
 from mcps.mcp_manager import init_mcp, shutdown_mcp
 from skills.skill_manager import get_skill_manager
+from utils.api_key_util import get_api_key_deepseek
 
 
 async def main():
-    api_key = os.environ.get("DEEPSEEK_API_KEY")
-    if not api_key:
-        print("Error: please set DEEPSEEK_API_KEY environment variable.")
-        sys.exit(1)
+    api_key = get_api_key_deepseek()
     client = OpenAI(api_key=api_key, base_url="https://api.deepseek.com")
     messages: list = [{"role": "system", "content": SYSTEM_PROMPT}]
     # 初始化 Skill 系统（仅加载元数据）
