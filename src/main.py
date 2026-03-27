@@ -2,6 +2,7 @@
 import asyncio
 
 from openai import OpenAI
+from zai import ZhipuAiClient
 
 from core.llm_loop import agent_loop
 from prompt.system_prompt import SYSTEM_PROMPT
@@ -40,6 +41,10 @@ def init_messages() -> list[dict[str, str]]:
 
 def init_client(api_key: str) -> OpenAI:
     return OpenAI(api_key=api_key, base_url="https://api.deepseek.com")
+
+
+def init_client_zhipu_glm(api_key: str) -> ZhipuAiClient:
+    return ZhipuAiClient(api_key=api_key)
 
 
 async def run_darcy_agent(_user_input: str, _client, _messages) -> str:

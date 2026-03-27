@@ -40,12 +40,12 @@
 
 ## 怎么使用
 ### 浏览器运行（推荐）
-1. 配置 deepseek apikey 环境变量 DEEPSEEK_API_KEY
+1. 配置 deepseek apikey 环境变量 DEEPSEEK_API_KEY [deepseek官网申请 apikey](https://platform.deepseek.com/api_keys)
 2. 运行 main_web.py
 3. 在浏览器中与 Agent 互动
 
 ### 控制台运行
-1. 配置 deepseek apikey 环境变量 DEEPSEEK_API_KEY
+1. 配置 deepseek apikey 环境变量 DEEPSEEK_API_KEY [deepseek官网申请 apikey](https://platform.deepseek.com/api_keys)
 2. 运行 main.py
 3. 在控制台中与 Agent 互动
 
