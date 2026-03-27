@@ -1,8 +1,11 @@
 import gradio as gr
-from gradio import Interface
+from gradio import Interface, Blocks
 
 
-def setup_ui(fn) -> Interface:
+def setup_ui_default(fn) -> Interface:
+    """
+    使用 Interface 绘制文本输入输出组件 （水平排列）
+    """
     return gr.Interface(
         fn=fn,
         inputs="text",
@@ -14,7 +17,10 @@ def setup_ui(fn) -> Interface:
         title="DarcyAiAgent"
     )
 
-def setup_ui_vertical(fn):
+def setup_ui_vertical(fn) -> Blocks:
+    """
+    使用 Blocks 实现自定义布局（输入输出组件 垂直排列）
+    """
     with gr.Blocks(title="DarcyAiAgent") as demo:
         # 标题
         gr.Markdown(
@@ -45,7 +51,7 @@ def setup_ui_vertical(fn):
             gr.Markdown("### 📝 输出")
             output_text = gr.Textbox(
                 label="回答",
-                lines=5,
+                lines=15,
                 interactive=False,
                 container=True,
             )

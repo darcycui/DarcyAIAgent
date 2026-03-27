@@ -39,12 +39,31 @@
 
 
 ## 怎么使用
+### 浏览器运行（推荐）
+1. 配置 deepseek apikey 环境变量 DEEPSEEK_API_KEY
+2. 运行 main_web.py
+3. 在浏览器中与 Agent 互动
 
+### 控制台运行
 1. 配置 deepseek apikey 环境变量 DEEPSEEK_API_KEY
 2. 运行 main.py
-3. 在控制台与 Agent 互动
+3. 在控制台中与 Agent 互动
+
 
 ## 运行效果
+### 浏览器（推荐）
+1. AI聊天 输入：你是谁
+![Agent你好](docs/image/Agent-Web运行效果.png)
+
+2. 调用 MCP 
+以 [darcycui-mcp](https://pypi.org/project/darcycui-mcp/) 为例，输入： 北京明天的天气
+![Agent调用MCP](docs/image/Agent-Web-MCP运行效果.png)
+
+3. 调用 Skill
+以 [my-first-skill](https://github.com/darcycui/DarcyAISkill) 为例，输入： 格式化文本  "   hello   tom  and     jerry    "
+![Agent调用Skill](docs/image/Agent-Web-Skill运行效果.png)
+
+### 控制台
 1. AI聊天 输入：你是谁
 ![Agent你是谁](docs/image/Agent你是谁.png)
 
