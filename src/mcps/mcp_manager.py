@@ -114,13 +114,14 @@ async def init_mcp() -> bool:
     Returns:
         是否初始化成功
     """
+    print("\n[MCP] Initializing MCP servers...")
     global _mcp_manager
-    _mcp_manager = MCPManager()
-
-    if not _mcp_manager.load_config():
-        return False
-
-    await _mcp_manager.connect_all()
+    if _mcp_manager is None:
+        _mcp_manager = MCPManager()
+        if not _mcp_manager.load_config():
+            return False
+        await _mcp_manager.connect_all()
+    print("[MCP] Initialization complete.\n")
     return True
 
 

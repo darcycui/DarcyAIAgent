@@ -1,6 +1,4 @@
 # 用户交互界面设计 - Python CLI REPL
-import os
-import sys
 import asyncio
 
 from openai import OpenAI
@@ -8,26 +6,18 @@ from openai import OpenAI
 from core.llm_loop import agent_loop
 from prompt.system_prompt import SYSTEM_PROMPT
 from mcps.mcp_manager import init_mcp, shutdown_mcp
-from skills.skill_manager import get_skill_manager
+from skills.skill_manager import init_skill
 from utils.api_key_util import get_api_key_deepseek
 
 
 async def main():
     api_key = get_api_key_deepseek()
-    client = OpenAI(api_key=api_key, base_url="https://api.deepseek.com")
-    messages: list = [{"role": "system", "content": SYSTEM_PROMPT}]
+    client = init_client(api_key)
+    messages: list = init_messages()
     # 初始化 Skill 系统（仅加载元数据）
-    print("\n[Skill] Discovering skills...")
-    skill_manager = get_skill_manager()
-    print(f"[Skill] Found {len(skill_manager.skills_metadata)} skill(s)")
-    for skill_name, skill_info in skill_manager.skills_metadata.items():
-        print(f"  - {skill_name}: {skill_info['description']}")
-    print()
-
+    init_skill()
     # 初始化 MCP
-    print("\n[MCP] Initializing MCP servers...")
     await init_mcp()
-    print("[MCP] Initialization complete.\n")
     print("Agent ready. Type your message (or 'exit' to quit, 'clear' to reset).\n")
     try:
         while True:
@@ -36,23 +26,34 @@ async def main():
             except (EOFError, KeyboardInterrupt):
                 print("\nBye.")
                 break
-            if not user_input:
-                continue
-            if user_input.lower() == "exit":
-                print("Bye.")
-                break
-            if user_input.lower() == "clear":
-                messages.clear()
-                messages.append({"role": "system", "content": SYSTEM_PROMPT})
-                print("(context cleared)\n")
-                continue
-            reply = await agent_loop(user_input, messages, client)
-            print(f"\nAgent> {reply}\n")
+            await run_darcy_agent(user_input, client, messages)
     finally:
         # 清理 MCP 连接
         print("\n[MCP] Shutting down MCP servers...")
         asyncio.run(shutdown_mcp())
         print("[MCP] Shutdown complete.")
+
+
+def init_messages() -> list[dict[str, str]]:
+    return [{"role": "system", "content": SYSTEM_PROMPT}]
+
+
+def init_client(api_key: str) -> OpenAI:
+    return OpenAI(api_key=api_key, base_url="https://api.deepseek.com")
+
+
+async def run_darcy_agent(_user_input: str, _client, _messages) -> str:
+    if not _user_input:
+        print("输入内容为空 请重新输入")
+    if _user_input.lower() == "exit":
+        print("Bye.")
+    if _user_input.lower() == "clear":
+        _messages.clear()
+        _messages.append({"role": "system", "content": SYSTEM_PROMPT})
+        print("(context cleared)\n")
+    reply = await agent_loop(_user_input, _messages, _client)
+    print(f"\nAgent> {reply}\n")
+    return reply
 
 
 # Press the green button in the gutter to run the script.

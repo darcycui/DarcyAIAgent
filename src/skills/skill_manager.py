@@ -298,3 +298,12 @@ def get_skill_manager() -> SkillManager:
         _skill_manager_instance = SkillManager()
         _skill_manager_instance.discover_skills()
     return _skill_manager_instance
+
+
+def init_skill():
+    print("\n[Skill] Discovering skills...")
+    skill_manager = get_skill_manager()
+    print(f"[Skill] Found {len(skill_manager.skills_metadata)} skill(s)")
+    for skill_name, skill_info in skill_manager.skills_metadata.items():
+        print(f"  - {skill_name}: {skill_info['description']}")
+    print()
