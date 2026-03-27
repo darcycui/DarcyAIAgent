@@ -14,7 +14,7 @@ client = init_client(api_key)
 messages = init_messages()
 
 
-def greet(name: str) -> str:
+def call_agent(name: str) -> str:
     print(f"输入文本: {name}")
 
     # 调用 run_darcy_agent
@@ -32,8 +32,8 @@ def greet(name: str) -> str:
     return result if result else f"回答错误"
 
 
-# demo: Interface = setup_ui(greet)
-demo: Blocks = setup_ui_vertical(greet)
+# demo: Interface = setup_ui_default(call_agent)
+demo: Blocks = setup_ui_vertical(call_agent)
 
 # 执行结果
 # share=False 本地运行

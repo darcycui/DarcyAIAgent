@@ -21,7 +21,7 @@ def setup_ui_vertical(fn) -> Blocks:
     """
     使用 Blocks 实现自定义布局（输入输出组件 垂直排列）
     """
-    with gr.Blocks(title="DarcyAiAgent") as demo:
+    with gr.Blocks(title="DarcyAIAgent") as demo:
         # 标题
         gr.Markdown(
             """
@@ -45,7 +45,7 @@ def setup_ui_vertical(fn) -> Blocks:
             with gr.Row():
                 submit_btn = gr.Button("📤 提交 (Shift+回车)", variant="primary", size="lg")
                 clear_btn = gr.Button("🗑️ 清空", size="lg")
-                stop_btn = gr.Button("⏹️ 停止", size="lg")
+                # stop_btn = gr.Button("⏹️ 停止", size="lg")
 
             # 输出区域（下方）
             gr.Markdown("### 📝 输出")
