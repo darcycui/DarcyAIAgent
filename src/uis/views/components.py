@@ -40,6 +40,12 @@ def setup_ui_vertical(fn) -> Blocks:
                 lines=3,
                 container=True
             )
+            # 图片上传组件
+            input_image = gr.Image(
+                label="📷 上传图片（可选）",
+                type="filepath",
+                sources=["upload", "clipboard"],
+            )
 
             # 按钮区域
             with gr.Row():
@@ -67,22 +73,22 @@ def setup_ui_vertical(fn) -> Blocks:
         # 绑定事件
         submit_btn.click(
             fn=fn,
-            inputs=input_text,
+            inputs=[input_text, input_image],
             outputs=output_text
         )
 
         # 支持按 Enter 键提交
         input_text.submit(
             fn=fn,
-            inputs=input_text,
+            inputs=[input_text, input_image],
             outputs=output_text
         )
 
         # 清空按钮
         clear_btn.click(
-            fn=lambda: ("", ""),
+            fn=lambda: ("", "", None),
             inputs=None,
-            outputs=[input_text, output_text]
+            outputs=[input_text, output_text, input_image]
         )
 
     # 返回构建好的 Blocks 实例
