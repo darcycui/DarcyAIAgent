@@ -3,6 +3,7 @@ import traceback
 
 from gradio import Blocks, Interface
 
+from call_llm.call_llm_api_image import call_llm_api_image
 from main import init_client, init_messages, run_darcy_agent
 from skills.skill_manager import init_skill
 from mcps.mcp_manager import init_mcp, shutdown_mcp
@@ -14,26 +15,37 @@ client = init_client(api_key)
 messages = init_messages()
 
 
-def call_agent(name: str) -> str:
-    print(f"输入文本: {name}")
+def call_llm(text: str, image_path) -> str:
+    print(f"输入文本: {text}")
+    print(f"输入图片: {image_path}")
 
     # 调用 run_darcy_agent
     # 使用 asyncio.run() 调用异步函数
-    async def process_request():
+    async def process_request_agent():
         # 初始化 Skill 系统（仅加载元数据）
         init_skill()
         # 初始化 MCP
         await init_mcp()
-        reply = await run_darcy_agent(name, client, messages)
+        reply = await run_darcy_agent(text, client, messages)
         return reply
 
+    async def process_request_api_image():
+        replay = await call_llm_api_image(text, image_path)
+        return replay
+
     # 执行异步调用
-    result = asyncio.run(process_request())
+    match image_path:
+        case "" | None:
+            # 纯文本
+            result = asyncio.run(process_request_agent())
+        case _:
+            # 图片理解
+            result = asyncio.run(process_request_api_image())
     return result if result else f"回答错误"
 
 
 # demo: Interface = setup_ui_default(call_agent)
-demo: Blocks = setup_ui_vertical(call_agent)
+demo: Blocks = setup_ui_vertical(call_llm)
 
 # 执行结果
 # share=False 本地运行

@@ -22,6 +22,17 @@ def setup_ui_vertical(fn) -> Blocks:
     使用 Blocks 实现自定义布局（输入输出组件 垂直排列）
     """
     with gr.Blocks(title="DarcyAIAgent") as demo:
+        # 自定义 CSS 样式
+        gr.HTML("""
+                <style>
+                    /* 固定图片上传组件的高度和宽度 */
+                    .image-component-container {
+                        max-height: 200px !important;
+                        height: 200px !important;
+                        max-width: 100% !important;
+                    }
+                </style>
+                """)
         # 标题
         gr.Markdown(
             """
@@ -45,6 +56,8 @@ def setup_ui_vertical(fn) -> Blocks:
                 label="📷 上传图片（可选）",
                 type="filepath",
                 sources=["upload", "clipboard"],
+                height=200,
+                elem_classes=["image-component-container"]
             )
 
             # 按钮区域
